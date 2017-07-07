@@ -8,8 +8,14 @@ class Goal(models.Model):
     created_at = models.DateTimeField(null=False, default=timezone.now)
     completed_at = models.DateTimeField(null=True)
 
+
+    def __str__(self):
+        return self.title
+
+
     def completed(self):
         return self.completed_at != None
+
 
 class Prereq(models.Model):
     title = models.CharField(max_length=200, null=False, blank=True, default='')
@@ -18,6 +24,9 @@ class Prereq(models.Model):
     postreq = models.ForeignKey(Goal, null=False, on_delete=models.CASCADE, related_name='prerequisites')
     created_at = models.DateTimeField(null=False, default=timezone.now)
 
+    
+    def __str__(self):
+        return self.prereq.title + ' -> '+ self.postreq.title
 
     def save(self, **kwargs):
         self.clean()
