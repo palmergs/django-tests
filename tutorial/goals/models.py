@@ -16,6 +16,25 @@ class Goal(models.Model):
     def completed(self):
         return self.completed_at != None
 
+    
+    def prerequisites_completed(self):
+        for p in self.prerequisites.all():
+            if p.prereq.completed_at == None:
+                return False
+        return True
+
+
+    def complete(self):
+        if self.completed_at != None:
+            return True
+
+        if self.prerequisites_completed():
+            self.completed_at = timezone.now()
+            self.save()
+            return True
+        else:
+            return False
+
 
 class Prereq(models.Model):
     title = models.CharField(max_length=200, null=False, blank=True, default='')
@@ -27,6 +46,7 @@ class Prereq(models.Model):
     
     def __str__(self):
         return self.prereq.title + ' -> '+ self.postreq.title
+
 
     def save(self, **kwargs):
         self.clean()
