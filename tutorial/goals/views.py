@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from django.utils import timezone
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
 from .models import Goal
 
@@ -14,11 +14,16 @@ def index(request):
 
 
 def show(request, goal_id):
-	return HttpResponse("You're looking at goal %s." % goal_id)
+	goal = get_object_or_404(Goal, pk=goal_id)
+	return render(request, 'goals/show.html', { 'goal' : goal })
+
+
+def update(request, goal_id):
+	return HttpResponse("The goal is %s." % goal_id)
 
 
 def complete(request, goal_id):
-	goal = Goal.objects.get(id=goal_id)
+	goal = get_object_or_404(Goal, pk=goal_id)
 	msg = 'unchanged'
 	if goal.completed():
 		goal.completed_at = None

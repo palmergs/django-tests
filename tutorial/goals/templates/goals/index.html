@@ -1,12 +1,15 @@
-<div class="row">
-  <div class="col-sm-12">
-    {% if goals %}
-      <ul class="list-group">
-      {% for goal in goals %}
-        <li class="list-item"><a href="{% url 'goals:show' goal.id %}">{{ goal.title }}</a></li>
-      {% endfor %}
-    {% else %}
-      <p class="text-info">No goals are available.</p>
-    {% endif %}
+{% extends 'goals/base.html' %}
+{% block content %}
+  <div class="row">
+    <div class="col-sm-12">
+      {% if goals %}
+        <ul class="list-group">
+        {% for goal in goals %}
+          <li class="list-item"><a href="{% url 'goals:show' goal.id %}">{{ goal.title }}</a></li>
+        {% endfor %}
+      {% else %}
+        <p class="text-info">No goals are available.</p>
+      {% endif %}
+    </div>
   </div>
-</div>
+{% endblock %}
