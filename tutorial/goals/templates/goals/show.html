@@ -15,7 +15,7 @@
   </div>
 
   <div class="row">
-    <form action="{% url 'goals:update' goal.id %}" method="put">
+    <form action="{% url 'goals:goal_edit' goal.id %}" method="put">
       {% csrf_token %}
 
       <div class="col-sm-12 form-group">
