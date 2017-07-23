@@ -8,26 +8,8 @@
 
   <div class="row">
     <div class="col-sm-12">
-      {% if error_message %}
-        <p class="text-warning">{{ error_message }}</p>
-      {% endif %}
+      <label>Description</label>
+      <p>{{ goal.description }}</p>
     </div>
-  </div>
-
-  <div class="row">
-    <form action="{% url 'goals:goal_edit' goal.id %}" method="put">
-      {% csrf_token %}
-
-      <div class="col-sm-12 form-group">
-        <label>Title</label>
-        <input type="text" class="form-control" value="" />
-        <small class="form-text text-warning">The title field is required.</small>
-      </div>
-
-      <div class="col-sm-12 form-group">
-        <label>Description</label>
-        <textarea class="form-control"></textarea>
-      </div>
-    </form>
   </div>
 {% endblock %}
